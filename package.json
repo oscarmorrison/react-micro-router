@@ -1,6 +1,9 @@
 {
   "name": "react-micro-router",
   "version": "0.0.1",
+  "engines": {
+      "node": "8"
+  },
   "description": "super minimal react micro router. the most basic router you will ever need.",
   "main": "index.jsx",
   "scripts": {

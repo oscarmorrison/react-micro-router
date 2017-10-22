@@ -20,7 +20,7 @@ class App extends React.Component {
     }
 
     about = (props) => {
-        console.log(props);
+        // console.log(props);
         props.changeRoute('/', { foo: 'bar' });
         return <div>about</div>;
     }
@@ -73,6 +73,7 @@ const Router = Component => class extends Component {
         const routeName = getRoute();
         const params = getParams();
         this.state = { routeName, params };
+        this.routeData = {};
     }
 
     componentWillMount = () => {
@@ -83,9 +84,10 @@ const Router = Component => class extends Component {
         window.removeEventListener('hashchange', this.routeChanged);
     };
 
-    changeRoute = (route) => {
+    changeRoute = (route, routeData) => {
         route = route.replace(/^\//, '#');
         const { params } = this.state;
+        this.routeData = Object.assign(this.routeData, routeData);
         const paramString = getParamString(params);
         window.location.hash = `${route}${paramString}`;
     };
@@ -101,6 +103,7 @@ const Router = Component => class extends Component {
         const routes = this.routes();
         const componentName = routes[routeName] || routes['/404'];
         const RouteComponent = this[componentName] || _404;
+        console.log(this.routeData);
         return (<RouteComponent
             {...this.props}
             {...this.state}
